@@ -47,7 +47,7 @@ function UsageTrack() {
                 width:`${Math.min((totalUsage / 20000) * 100, 100)}%`
             }}></div>
         </div>
-        <h2 className='text-sm my-2'>{totalUsage}/20,000 Credits used</h2>
+        <h2 className='text-sm my-2'>{totalUsage}/2000,000 Credits used</h2>
       </div>
       <Button variant = {'secondary'} className = 'w-full my-3 text-primary'>Upgrade</Button>
     </div>

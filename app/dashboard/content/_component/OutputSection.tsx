@@ -1,41 +1,40 @@
-import React, { useState } from "react";
-import "react-quill/dist/quill.snow.css"; // Import CSS của React Quill
-import ReactQuill from "react-quill";
-import { Copy } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import React, { useEffect, useRef } from 'react'
+import '@toast-ui/editor/dist/toastui-editor.css';
+import { Editor } from '@toast-ui/react-editor';
+import { Copy } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
-interface PROPS {
-  aiOutput: string;
+
+interface PROPS{
+  aiOutput:string;
 }
 
-function OutputSection({ aiOutput }: PROPS) {
-  const [editorContent, setEditorContent] = useState<string>(aiOutput);
+function OutputSection({aiOutput}:PROPS) {
+  const editorRef:any = useRef();
 
-  // Cập nhật nội dung khi `aiOutput` thay đổi
-  React.useEffect(() => {
-    setEditorContent(aiOutput);
-  }, [aiOutput]);
-
+  useEffect(()=>{
+    const editorInstance = editorRef.current.getInstance();
+    editorInstance.setMarkdown(aiOutput);
+  },[aiOutput])
+  
   return (
-    <div className="bg-white shadow-lg border">
-      <div className="flex justify-between items-center p-5">
-        <h2 className="font-medium text-lg">Generated Content</h2>
-        <Button
-          className="flex gap-2"
-          onClick={() => navigator.clipboard.writeText(editorContent)}
-        >
-          <Copy className="w-4 h-4" /> Copy
-        </Button>
+    <div className='bg-white shadow-lg border'>
+      <div className='flex justify-between items-center p-5'>
+        <h2 className='font-medium text-lg '>Generated Content</h2>
+        <Button className='flex gap-2'
+        onClick={()=>navigator.clipboard.writeText(aiOutput)}><Copy className='w-4 h-4'/> Copy</Button>
+
       </div>
-      <ReactQuill
-        value={editorContent}
-        onChange={setEditorContent}
-        theme="snow" // Giao diện editor
-        style={{ height: "400px" }} // Thiết lập chiều cao
-        readOnly={true} // Đặt chế độ chỉ đọc nếu cần
+      <Editor
+        ref = {editorRef}
+        initialValue="Generated Content will Appear here"
+        height="600px"
+        initialEditType="markdown"
+        useCommandShortcut={true}
+        onChange = {()=>console.log(editorRef.current.getInstance().getMarkdown())}
       />
     </div>
-  );
+  )
 }
 
-export default OutputSection;
+export default OutputSection

@@ -26,7 +26,7 @@ export default [
         desc: 'AI tool that generates a detailed blog outline based on the provided topic or niche.',
         category:'Blog',
         icon: 'https://cdn-icons-png.flaticon.com/128/2593/2593549.png',
-        aiPrompt: 'Generate a detailed blog outline based on the niche and topic provided. Provide the result in rich text editor format.',
+        aiPrompt: 'Generate a detailed blog outline based on the niche and topic provided. Provide the result in rich text editor format. dịch qua tiếng việt cho tôi',
         slug: 'generate-blog-outline',
         form: [
             {
